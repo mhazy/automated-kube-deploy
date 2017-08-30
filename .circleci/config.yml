@@ -19,4 +19,4 @@ jobs:
       - run:
           name: Deploy application to cluster
           command: |
-            kubectl apply -f ./deployment.yaml
+            kubectl replace -f ./deployment.yaml --force
