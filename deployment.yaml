@@ -17,7 +17,7 @@ spec:
         run: nodetest
     spec:
       containers:
-      - image: docker.io/mhazy/nodetest:latest
+      - image: docker.io/mhazy/nodetest:IMAGE_HASH
         name: nodetest
         ports:
         - containerPort: 8080
