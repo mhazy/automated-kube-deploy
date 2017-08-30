@@ -21,4 +21,5 @@ jobs:
           command: |
             # Temporary replacement before proper templated deployment files
             sed -ie "s/IMAGE_HASH/${CIRCLE_SHA1}/g" ./deployment.yaml
+            kubectl delete -f ./deployment.yaml --ignore-not-found=true
             kubectl apply -f ./deployment.yaml
