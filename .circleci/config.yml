@@ -9,9 +9,9 @@ jobs:
       - run:
           name: Build and push image
           command: |
-            docker build -t mhazy/nodetest:${CIRCLE_SHA1} .
+            docker build -t mhazy/nodetest:pr1234 .
             docker login -u ${DOCKER_HUB_USER} -p ${DOCKER_HUB_PASSWORD}
-            docker push mhazy/nodetest:${CIRCLE_SHA1}
+            docker push mhazy/nodetest:pr1234
       - run:
           name: Setup Kubectl configuration
           command: |
@@ -20,6 +20,5 @@ jobs:
           name: Deploy application to cluster
           command: |
             # Temporary replacement before proper templated deployment files
-            sed -ie "s/IMAGE_HASH/${CIRCLE_SHA1}/g" ./deployment.yaml
-            kubectl delete -f ./deployment.yaml --ignore-not-found=true
+            sed -ie "s/IMAGE_HASH/pr1234/g" ./deployment.yaml
             kubectl apply -f ./deployment.yaml

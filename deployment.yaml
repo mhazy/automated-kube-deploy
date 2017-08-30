@@ -19,6 +19,7 @@ spec:
       containers:
       - image: docker.io/mhazy/nodetest:IMAGE_HASH
         name: nodetest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 
