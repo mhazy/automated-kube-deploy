@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: mhazy/dockubercle:latest
     steps:
+      - setup-docker-engine
       - checkout
       - run:
           name: Build and push image
