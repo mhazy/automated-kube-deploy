@@ -1,0 +1,59 @@
+# Sample deployment for testing
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nodetest
+  name: nodetest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: nodetest
+  template:
+    metadata:
+      labels:
+        run: nodetest
+    spec:
+      containers:
+      - image: docker.io/mhazy/nodetest:latest
+        name: nodetest
+        ports:
+        - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: nodetest
+  labels:
+    run: nodetest
+spec:
+  selector:
+    run: nodetest
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nodetest 
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: node2test.app.aldodevcluster.rangleapp.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nodetest
+          servicePort: 80
+
