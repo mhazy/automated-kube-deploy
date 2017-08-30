@@ -5,3 +5,19 @@ jobs:
       - image: mhazy/dockubercle:latest
     steps:
       - checkout
+      - run:
+          name: Build deployment image
+          command: |
+            docker build -t mhazy/nodetest:latest
+      - run:
+          name: Push image to registry
+          command: |
+            docker push mhazy/nodetest:latest
+      - run:
+          name: Setup Kubectl configuration
+          command: |
+            kops export kubecfg --state s3://cluster_aldodev_state_store aldodevcluster.rangleapp.io
+      - run:
+          name: Deploy application to cluster
+          command: |
+            kubectl apply -f ./deployment.yaml
