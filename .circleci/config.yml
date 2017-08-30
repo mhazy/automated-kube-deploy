@@ -22,3 +22,4 @@ jobs:
             # Temporary replacement before proper templated deployment files
             sed -ie "s/IMAGE_HASH/pr1234/g" ./deployment.yaml
             kubectl apply -f ./deployment.yaml
+            cat ./deployment.yaml
