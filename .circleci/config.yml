@@ -6,16 +6,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Login to Docker hub
-          command: |
-            docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
-      - run:
-          name: Build deployment image
+          name: Build and push image
           command: |
             docker build -t mhazy/nodetest:latest .
-      - run:
-          name: Push image to registry
-          command: |
+            docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
             docker push mhazy/nodetest:latest
       - run:
           name: Setup Kubectl configuration
